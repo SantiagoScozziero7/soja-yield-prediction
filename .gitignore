@@ -1,0 +1,93 @@
+# ============================================================
+# ENTORNOS VIRTUALES Y GESTIÓN DE DEPENDENCIAS
+# ============================================================
+# Poetry crea el entorno virtual FUERA de la carpeta del proyecto
+# (en AppData\Local\pypoetry\...), así que normalmente no aparecería
+# acá. Pero si alguna vez usás `poetry config virtualenvs.in-project true`
+# (crea el .venv DENTRO del proyecto), esta línea lo cubre.
+.venv/
+venv/
+env/
+
+# ============================================================
+# ARCHIVOS DE PYTHON GENERADOS AUTOMÁTICAMENTE
+# ============================================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ============================================================
+# DATOS (versionados aparte con DVC en la Fase 4, no con Git)
+# ============================================================
+# El "!" antes de un patrón es una EXCEPCIÓN: le dice a Git
+# "ignorá todo dentro de esta carpeta, EXCEPTO este archivo puntual".
+# Así preservamos el .gitkeep (estructura) pero ignoramos el contenido real.
+data/raw/*
+!data/raw/.gitkeep
+
+data/interim/*
+!data/interim/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+# ============================================================
+# MODELOS Y ARTEFACTOS ENTRENADOS
+# ============================================================
+# Mismo principio: ignoramos los binarios pesados, preservamos la carpeta.
+models/*
+!models/.gitkeep
+
+# Formatos comunes de modelos serializados, por si aparecen
+# sueltos en otro lado del proyecto (ej. durante experimentación).
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.pth
+
+# ============================================================
+# JUPYTER NOTEBOOKS
+# ============================================================
+# Jupyter genera checkpoints automáticos de cada notebook.
+# Son redundantes: el propio .ipynb ya tiene su historial de celdas.
+.ipynb_checkpoints/
+
+# ============================================================
+# TRACKING DE EXPERIMENTOS (MLflow) - Fase 4
+# ============================================================
+# MLflow, por defecto, guarda corridas localmente en esta carpeta.
+# No la versionamos porque crece con cada experimento y es puramente
+# local; en un setup de equipo, MLflow correría en un servidor remoto.
+mlruns/
+mlartifacts/
+
+# ============================================================
+# SECRETOS Y CONFIGURACIÓN LOCAL
+# ============================================================
+# CRÍTICO: nunca versionar API keys, tokens, credenciales.
+# Vamos a usar un archivo .env para esto (Fase 4/6) y un
+# .env.example (sin valores reales) que SÍ se versiona como plantilla.
+.env
+.env.local
+
+# ============================================================
+# EDITORES / IDEs
+# ============================================================
+.vscode/
+.idea/
+*.swp
+
+# ============================================================
+# SISTEMA OPERATIVO
+# ============================================================
+Thumbs.db
+desktop.ini
+.DS_Store

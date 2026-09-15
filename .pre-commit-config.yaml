@@ -1,0 +1,46 @@
+# .pre-commit-config.yaml
+# Configuración de hooks que se ejecutan automáticamente antes de cada
+# `git commit`. Si algún hook falla o modifica archivos, el commit se
+# cancela para que revises los cambios antes de confirmarlos.
+
+repos:
+  # ----------------------------------------------------------------
+  # Ruff: linting + formateo de código Python en un solo paso
+  # ----------------------------------------------------------------
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.6  # misma versión que instalamos con Poetry, para consistencia
+    hooks:
+      # 1. ruff (lint): busca errores de estilo, imports rotos, variables
+      #    no usadas, etc. El flag --fix le permite auto-corregir lo que
+      #    pueda arreglar solo (ej. reordenar imports).
+      - id: ruff
+        args: [--fix]
+
+      # 2. ruff-format: aplica el formateo consistente (equivalente a lo
+      #    que hacía Black), como el largo de línea y el estilo de comillas
+      #    que configuramos en pyproject.toml.
+      - id: ruff-format
+
+  # ----------------------------------------------------------------
+  # Hooks genéricos de higiene de archivos (vienen del propio proyecto
+  # pre-commit, cubren chequeos básicos que no son específicos de Python)
+  # ----------------------------------------------------------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # Elimina espacios en blanco sobrantes al final de las líneas
+      - id: trailing-whitespace
+
+      # Asegura que todo archivo termine con un salto de línea (buena
+      # práctica POSIX, evita diffs raros en Git)
+      - id: end-of-file-fixer
+
+      # Verifica que los archivos YAML (como este mismo) tengan sintaxis
+      # válida, para no romper configuraciones sin darte cuenta
+      - id: check-yaml
+
+      # Bloquea commits accidentales de archivos muy pesados (por ejemplo,
+      # si alguna vez te olvidás de que un CSV grande no debería ir a Git,
+      # aunque el .gitignore ya debería prevenir esto como primera barrera)
+      - id: check-added-large-files
+        args: [--maxkb=5000]

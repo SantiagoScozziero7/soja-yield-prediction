@@ -16,3 +16,25 @@ packages = [{include = "maiz_yield_prediction", from = "src"}]
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.16.6,<0.17.0)",
+    "pre-commit (>=4.6.2,<5.0.0)"
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle (errores de estilo)
+    "F",   # pyflakes (errores lógicos: variables no usadas, imports rotos)
+    "I",   # isort (orden de imports)
+    "N",   # pep8-naming (convenciones de nombres)
+    "UP",  # pyupgrade (sugiere sintaxis moderna de Python)
+]
+
+[tool.ruff.format]
+quote-style = "double"

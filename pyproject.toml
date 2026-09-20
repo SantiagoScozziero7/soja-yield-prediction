@@ -8,6 +8,8 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.13,<3.15"
 dependencies = [
+    "pandas (>=3.0.6,<4.0.0)",
+    "openpyxl (>=3.1.5,<4.0.0)"
 ]
 
 [tool.poetry]
@@ -20,7 +22,8 @@ build-backend = "poetry.core.masonry.api"
 [dependency-groups]
 dev = [
     "ruff (>=0.16.6,<0.17.0)",
-    "pre-commit (>=4.6.2,<5.0.0)"
+    "pre-commit (>=4.6.2,<5.0.0)",
+    "jupyter (>=1.1.1,<2.0.0)"
 ]
 
 [tool.ruff]
